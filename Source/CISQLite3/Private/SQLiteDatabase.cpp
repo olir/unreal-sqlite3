@@ -1,5 +1,5 @@
-#include "CISQLite3PrivatePCH.h"
 #include "SQLiteDatabase.h"
+#include "CISQLite3PrivatePCH.h"
 
 #define LOGSQLITE(verbosity, text) UE_LOG(LogDatabase, verbosity, TEXT("SQLite: %s"), text)
 
