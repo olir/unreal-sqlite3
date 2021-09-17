@@ -1,8 +1,8 @@
+#include "SQLiteBlueprintFunctionLibrary.h"
 #include "CISQLite3PrivatePCH.h"
 #include "Engine.h"
-#include "String.h"
+#include "Misc/CString.h"
 
-#include "SQLiteBlueprintFunctionLibrary.h"
 
 
 
