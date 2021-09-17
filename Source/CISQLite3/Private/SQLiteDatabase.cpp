@@ -663,6 +663,8 @@ bool USQLiteDatabase::IsTableExists(const FString& DatabaseName, const FString& 
 
 }
 
+//--------------------------------------------------------------------------------------------------------------
+
 void USQLiteDatabase::InsertRowsIntoTable(const FString& DatabaseName, const FString& TableName, TArray<FSQLiteTableRowSimulator> rowsOfFields){
 	for (FSQLiteTableRowSimulator row : rowsOfFields) {
 		FString query = "INSERT INTO " + TableName + " (";
@@ -690,6 +692,74 @@ void USQLiteDatabase::InsertRowsIntoTable(const FString& DatabaseName, const FSt
 		ExecSql(DatabaseName, query);
 
 	}
+}
+
+//--------------------------------------------------------------------------------------------------------------
+
+void USQLiteDatabase::UpdateRowsInTable(const FString& DatabaseName, const FString& TableName, TArray<FSQLiteTableRowSimulator> rowsOfFields,
+	FSQLiteQueryFinalizedQuery Query, int32 MaxResults, int32 ResultOffset) {
+	if (Query.Query.Len() == 0)
+	{
+		LOGSQLITE(Error, TEXT("The statement needs a where query clause! No operation."));
+		return;
+	}
+
+	for (FSQLiteTableRowSimulator row : rowsOfFields) {
+		FString query = "UPDATE " + TableName + " SET ";
+
+		for (FSQLiteTableField field : row.rowsOfFields) {
+			query += field.FieldName + " = ";
+
+			if (field.FieldType.Equals(TEXT("TEXT"))) {
+				query = query + "'" + field.FieldValue + "', ";
+			}
+			else {
+				query = query + field.FieldValue + ", ";
+			}
+		}
+
+		query = query.Left(query.Len() - 2);
+
+		query = query + FString::Printf(TEXT(" WHERE %s"), *Query.Query);
+
+		if (MaxResults >= 0)
+		{
+			query = query + FString::Printf(TEXT(" LIMIT %i"), MaxResults);
+		}
+
+		if (ResultOffset > 0)
+		{
+			query = query + FString::Printf(TEXT(" OFFSET %i"), ResultOffset);
+		}
+
+		query = query + ";";
+
+		//LOGSQLITE(Warning, *query);
+
+		ExecSql(DatabaseName, query);
+
+	}
+}
+//--------------------------------------------------------------------------------------------------------------
+
+void USQLiteDatabase::DeleteRowsInTable(const FString& DatabaseName, const FString& TableName,
+	FSQLiteQueryFinalizedQuery Query) {
+	if (Query.Query.Len() == 0)
+	{
+		LOGSQLITE(Error, TEXT("The statement needs a where query clause! No operation."));
+		return;
+	}
+
+	FString query = "DELETE FROM " + TableName + " WHERE ";
+
+	query = query + FString::Printf(TEXT("%s"), *Query.Query);
+
+	query = query + ";";
+
+	//LOGSQLITE(Warning, *query);
+
+	ExecSql(DatabaseName, query);
+
 }
 
 //--------------------------------------------------------------------------------------------------------------
