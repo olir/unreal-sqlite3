@@ -1,8 +1,11 @@
 # Simple SQLite3 Source integration for Unreal Engine 4
 
 ## About this fork
+If you do not use blueprints, you do not need my changes and can check where i forked from.
+I added some support for sqlite3 to have database modifications reachable from Blueprints. Example:
 
-Added some support for sqlite3 to have database modifications reachable from Blueprints.
+https://blueprintue.com/blueprint/z9xg6l0u/
+https://blueprintue.com/blueprint/sw7cysyz/
 
 If you have high-performance requirements, you need to enhance it for using prepared statements in the desired way. This has not been implemented, yet.
 
