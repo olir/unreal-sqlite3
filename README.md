@@ -106,11 +106,11 @@ bool AMyActor::GetMyStats()
 The MIT License (MIT)
 
 Copyright (c) 2015 Jussi Saarivirta & KhArtNJava (SQLite3UE4)
-
 Copyright (c) 2016 conflict.industries
-
 Copyright (c) 2019 Jonathan Hale (Vhite Rabbit GbR)
 Copyright (c) 2019 Rehub GmbH
+Copyright (c) 2020 Rob Quist
+Copyright (c) 2021 Oliver Rode
 
 ### SQLite3
 
