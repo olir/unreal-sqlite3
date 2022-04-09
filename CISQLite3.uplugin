@@ -2,6 +2,7 @@
 	"FileVersion": 3,
 	"Version": 5,
 	"VersionName": "5.0",
+	"EngineVersion": "5.0.0",
 	"FriendlyName": "SQLite3 RW Plugin",
 	"Description": "SQLite3 plugin with Blueprint nodes for read and write.",
 	"Category": "Database",
