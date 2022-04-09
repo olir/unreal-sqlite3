@@ -1,27 +1,28 @@
-# Simple SQLite3 Source integration for Unreal Engine 4
+# Blueprint-Library SQLite3 for Unreal Engine 5
 
-## About this fork
-If you do not use blueprints, you do not need my changes and can check where i forked from.
+## About this fork 
+
+Based on Squareys/unreal-sqlite3:
+
+Updated to use Plugin parts of Unreal Engine 5.
+
 I added some support for sqlite3 to have database modifications reachable from Blueprints. Example:
 
-https://blueprintue.com/blueprint/z9xg6l0u/
-https://blueprintue.com/blueprint/sw7cysyz/
+https://blueprintue.com/blueprint/z9xg6l0u/ https://blueprintue.com/blueprint/sw7cysyz/
 
-If you have high-performance requirements, you need to enhance it for using prepared statements in the desired way. This has not been implemented, yet.
+If you have high-performance requirements, you need to enhance it for using prepared statements in the desired way. This has not been implemented, yet. 
 
-Another issue to be aware of: The sqlite3 plugin is incompatible to the sqlite plugin required by Epic's Megascan Quixel Bridge.
-
-## Description
+# Simple SQLite3 Source integration for Unreal Engine 4
 
 Based on [SQLite3UE4 Plugin by Jussi Saarivirta & KhArtNJava](https://github.com/KhArtNJava/SQLite3UE4/) but with compiling SQLite3 as part of the module code, this opens up compiling it (hopefully) on all platforms without any extra process.
 
 Please report any problems to the [issues tracker](https://github.com/cindustries/unreal-sqlite3/issues) on this GitHub, or join us at [#unrealengine on irc.freenode.net](https://webchat.freenode.net/?channels=#unrealengine)), you can msg me under **Getty**.
 
-## Difference to SQLite3UE4
+# Difference to SQLite3UE4
 
 SQLite3UE4 integrates sqlite3 as a ThirdParty module, which leads to a chain of complexity and also requires people to build the sqlite3 library before using it. On CISQLite3, we integrated the sqlite3 code directly into the module, and so it gets linked like the rest of the module on compile.
 
-## Works On
+# Works On
 
 Compiled and basic functionality:
 
@@ -37,15 +38,15 @@ UE4 Version | Tested
 4.20.x | ✓
 4.19.x | ✓
 
-## Installation
+# Installation
 
 Copy this plugin (like Download as ZIP) into the folder **Plugins/CISQLite3** on your project and a start of the project should compile the plugin automatically, if the project is C++. If you don't have a C++ project, then you can just make one for the sole purpose of compiling this plugin. Alternative you can install it as Engine Plugin in the Engine Plugins directory (like **Epic Games/4.22/Engine/Plugins/Runtime/CISQLite3**).
 
-## Usage
+# Usage
 
 (More usages to come....)
 
-### C++
+## C++
 
 And here's a simple sample in C++:
 
@@ -102,20 +103,20 @@ bool AMyActor::GetMyStats()
 }
 ```
 
-## License & Copyright
+# License & Copyright
 
-### CISQLite3
+## CISQLite3
 
 The MIT License (MIT)
 
 Copyright (c) 2015 Jussi Saarivirta & KhArtNJava (SQLite3UE4)
+
 Copyright (c) 2016 conflict.industries
+
 Copyright (c) 2019 Jonathan Hale (Vhite Rabbit GbR)
 Copyright (c) 2019 Rehub GmbH
-Copyright (c) 2020 Rob Quist
-Copyright (c) 2021 Oliver Rode
 
-### SQLite3
+## SQLite3
 
 The author disclaims copyright to this source code. In place of a legal notice, here is a blessing:
 

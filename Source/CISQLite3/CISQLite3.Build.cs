@@ -17,7 +17,8 @@ public class CISQLite3 : ModuleRules
       new string[] {
         "Engine",
         "Core",
-        "CoreUObject"
+        "CoreUObject",
+        "SQLiteCore"
       }
     );
 

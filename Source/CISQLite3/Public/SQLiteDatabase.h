@@ -192,11 +192,11 @@ public:
 
 	/** Insert rows into table */
 	UFUNCTION(BlueprintCallable, Category = "SQLite|Query", meta = (DisplayName = "Insert Rows Into Table"))
-		static void InsertRowsIntoTable(const FString& DatabaseName, const FString& TableName, TArray<FSQLiteTableRowSimulator> rowsOfFields);
+		static bool InsertRowsIntoTable(const FString& DatabaseName, const FString& TableName, TArray<FSQLiteTableRowSimulator> rowsOfFields);
 
 	/** Update rows in table */
 	UFUNCTION(BlueprintCallable, Category = "SQLite|Query", meta = (DisplayName = "Update Rows In Table"))
-		static void UpdateRowsInTable(const FString& DatabaseName, const FString& TableName, TArray<FSQLiteTableRowSimulator> rowsOfFields, FSQLiteQueryFinalizedQuery Query, int32 MaxResults = -1, int32 ResultOffset = 0);
+		static bool UpdateRowsInTable(const FString& DatabaseName, const FString& TableName, TArray<FSQLiteTableRowSimulator> rowsOfFields, FSQLiteQueryFinalizedQuery Query, int32 MaxResults = -1, int32 ResultOffset = 0);
 
 	/** Update rows in table */
 	UFUNCTION(BlueprintCallable, Category = "SQLite|Query", meta = (DisplayName = "Delete Rows In Table"))
@@ -206,11 +206,15 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "SQLite|Query", meta = (DisplayName = "Compact database"))
 		static bool Vacuum(const FString& DatabaseName);
 
+	// Last insert rowid
+	//UFUNCTION(BlueprintCallable, Category = "SQLite|Query", meta = (DisplayName = "Last Insert Rowid"))
+	//	static int32 LastInsertRowid(const FString& DatabaseName);
+
 	/** Execute SQL (can be used for insert statement)*/
 	UFUNCTION(BlueprintCallable, Category = "SQLite|Query", meta = (DisplayName = "Execute SQL"))
 		static bool ExecSql(const FString& DatabaseName, const FString& Query);
 
-    /** Checks database validity (if the file exists and/or if it can be opened). */
+	/** Checks database validity (if the file exists and/or if it can be opened). */
 	UFUNCTION(BlueprintCallable, Category = "SQLite|Query", meta = (DisplayName = "Is Valid Database"))
         static bool IsValidDatabase(const FString& DatabaseFilename, bool TestByOpening);
 

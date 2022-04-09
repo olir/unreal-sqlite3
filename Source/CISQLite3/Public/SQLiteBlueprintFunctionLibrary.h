@@ -1,7 +1,6 @@
 #pragma once
-#include "SQLiteDatabase.h"
-#include "SQLiteBlueprintNodes.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+//#include "SQLiteDatabase.h"
 #include "SQLiteBlueprintFunctionLibrary.generated.h"
 
 /**

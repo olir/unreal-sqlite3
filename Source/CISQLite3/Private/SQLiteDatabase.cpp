@@ -541,7 +541,37 @@ bool USQLiteDatabase::Vacuum(const FString& DatabaseName)
 }
 
 //--------------------------------------------------------------------------------------------------------------
+ 
+/*
+int32 USQLiteDatabase::LastInsertRowid(const FString& DatabaseName) {
 
+	sqlite3* db = nullptr;
+	const FString* databaseName = Databases.Find(DatabaseName);
+	if (!databaseName) {
+		LOGSQLITE(Error, TEXT("DB not registered."));
+		return -1;
+	}
+
+	const bool keepOpen = SQLite3Databases.Contains(DatabaseName);
+	if (keepOpen) {
+		db = SQLite3Databases[DatabaseName];
+	}
+	else {
+		if (sqlite3_open(TCHAR_TO_ANSI(**databaseName), &db) != SQLITE_OK) {
+			LOGSQLITE(Error, TEXT("DB open failed."));
+			return -1;
+		}
+	}
+
+	int32 rowid = (int32)sqlite3_last_insert_rowid(db);
+
+	if (!keepOpen) sqlite3_close(db);
+
+	return rowid;
+}
+*/
+
+//--------------------------------------------------------------------------------------------------------------
 bool USQLiteDatabase::ExecSql(const FString& DatabaseName, const FString& Query) {
 	LOGSQLITE(Verbose, *Query);
 
@@ -665,7 +695,9 @@ bool USQLiteDatabase::IsTableExists(const FString& DatabaseName, const FString& 
 
 //--------------------------------------------------------------------------------------------------------------
 
-void USQLiteDatabase::InsertRowsIntoTable(const FString& DatabaseName, const FString& TableName, TArray<FSQLiteTableRowSimulator> rowsOfFields){
+bool USQLiteDatabase::InsertRowsIntoTable(const FString& DatabaseName, const FString& TableName, TArray<FSQLiteTableRowSimulator> rowsOfFields){
+	bool success = true;
+
 	for (FSQLiteTableRowSimulator row : rowsOfFields) {
 		FString query = "INSERT INTO " + TableName + " (";
 		for (FSQLiteTableField field : row.rowsOfFields) {
@@ -689,20 +721,24 @@ void USQLiteDatabase::InsertRowsIntoTable(const FString& DatabaseName, const FSt
 
 		//LOGSQLITE(Warning, *query);
 
-		ExecSql(DatabaseName, query);
+		success &= ExecSql(DatabaseName, query);
 
 	}
+
+	return success;
 }
 
 //--------------------------------------------------------------------------------------------------------------
 
-void USQLiteDatabase::UpdateRowsInTable(const FString& DatabaseName, const FString& TableName, TArray<FSQLiteTableRowSimulator> rowsOfFields,
+bool USQLiteDatabase::UpdateRowsInTable(const FString& DatabaseName, const FString& TableName, TArray<FSQLiteTableRowSimulator> rowsOfFields,
 	FSQLiteQueryFinalizedQuery Query, int32 MaxResults, int32 ResultOffset) {
 	if (Query.Query.Len() == 0)
 	{
 		LOGSQLITE(Error, TEXT("The statement needs a where query clause! No operation."));
-		return;
+		return false;
 	}
+
+	bool success = true;
 
 	for (FSQLiteTableRowSimulator row : rowsOfFields) {
 		FString query = "UPDATE " + TableName + " SET ";
@@ -736,9 +772,11 @@ void USQLiteDatabase::UpdateRowsInTable(const FString& DatabaseName, const FStri
 
 		//LOGSQLITE(Warning, *query);
 
-		ExecSql(DatabaseName, query);
+		success &= ExecSql(DatabaseName, query);
 
 	}
+
+	return success;
 }
 //--------------------------------------------------------------------------------------------------------------
 
