@@ -2,7 +2,7 @@
 
 ## About this fork 
 
-Based on [unreal-sqlite3 by Squareys](https://github.com/Squareys/unreal-sqlite3) but using SQLiteCore from UnrealEngine (should work on 4.22+)
+Based on [unreal-sqlite3 by Squareys](https://github.com/Squareys/unreal-sqlite3) but using SQLiteCore from UnrealEngine (should work on 4.22+ for UE4 you have to change the engine version in the uplugin file)
 
 I added some support for sqlite3 to have database modifications reachable from Blueprints. Example:
 
