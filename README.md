@@ -1,10 +1,8 @@
-# Blueprint-Library SQLite3 for Unreal Engine 5
+# Blueprint-Library SQLite3 for Unreal Engine
 
 ## About this fork 
 
-Based on Squareys/unreal-sqlite3:
-
-Updated to use Plugin parts of Unreal Engine 5.
+Based on [unreal-sqlite3 by Squareys](https://github.com/Squareys/unreal-sqlite3) but using SQLiteCore from UnrealEngine (should work on 4.22+)
 
 I added some support for sqlite3 to have database modifications reachable from Blueprints. Example:
 
@@ -12,15 +10,10 @@ https://blueprintue.com/blueprint/z9xg6l0u/ https://blueprintue.com/blueprint/sw
 
 If you have high-performance requirements, you need to enhance it for using prepared statements in the desired way. This has not been implemented, yet. 
 
-# Simple SQLite3 Source integration for Unreal Engine 4
+# Simple SQLite3 Source integration for Unreal Engine
 
-Based on [SQLite3UE4 Plugin by Jussi Saarivirta & KhArtNJava](https://github.com/KhArtNJava/SQLite3UE4/) but with compiling SQLite3 as part of the module code, this opens up compiling it (hopefully) on all platforms without any extra process.
 
 Please report any problems to the [issues tracker](https://github.com/cindustries/unreal-sqlite3/issues) on this GitHub, or join us at [#unrealengine on irc.freenode.net](https://webchat.freenode.net/?channels=#unrealengine)), you can msg me under **Getty**.
-
-# Difference to SQLite3UE4
-
-SQLite3UE4 integrates sqlite3 as a ThirdParty module, which leads to a chain of complexity and also requires people to build the sqlite3 library before using it. On CISQLite3, we integrated the sqlite3 code directly into the module, and so it gets linked like the rest of the module on compile.
 
 # Works On
 
@@ -29,18 +22,18 @@ Compiled and basic functionality:
 OS | Tested
 ---|-------
 Windows x64 | ✓
+Linux x64 | ✓
 Android | ✓
+
 
 UE4 Version | Tested
 ---|-------
-4.22.x | ✓
-4.21.x | ✓
-4.20.x | ✓
-4.19.x | ✓
+4.27 | ✓
+5.0.x | ✓
 
 # Installation
 
-Copy this plugin (like Download as ZIP) into the folder **Plugins/CISQLite3** on your project and a start of the project should compile the plugin automatically, if the project is C++. If you don't have a C++ project, then you can just make one for the sole purpose of compiling this plugin. Alternative you can install it as Engine Plugin in the Engine Plugins directory (like **Epic Games/4.22/Engine/Plugins/Runtime/CISQLite3**).
+Copy this plugin (like Download as ZIP) into the folder **Plugins/CISQLite3** on your project and a start of the project should compile the plugin automatically, if the project is C++. If you don't have a C++ project, then you can just make one for the sole purpose of compiling this plugin. Alternative you can install it as Engine Plugin in the Engine Plugins directory (like **Epic Games/5.0/Engine/Plugins/Runtime/CISQLite3**).
 
 # Usage
 
