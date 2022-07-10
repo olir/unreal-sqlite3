@@ -53,12 +53,11 @@ struct CISQLITE3_API FSQLiteQueryResult
 
 	/** Was the query successful or not */
 	UPROPERTY(BlueprintReadOnly, Category = "SQLite Query Result")
-		bool Success;
+		bool Success = false;
 
 	/** If the query was unsuccessful a human readable error message will be populated here */
 	UPROPERTY(BlueprintReadOnly, Category = "SQLite Query Result")
 		FString ErrorMessage;
-
 };
 
 
@@ -216,8 +215,11 @@ public:
 
 	/** Checks database validity (if the file exists and/or if it can be opened). */
 	UFUNCTION(BlueprintCallable, Category = "SQLite|Query", meta = (DisplayName = "Is Valid Database"))
-        static bool IsValidDatabase(const FString& DatabaseFilename, bool TestByOpening);
+    static bool IsValidDatabase(const FString& DatabaseFilename, bool TestByOpening);
 
+	UFUNCTION(BlueprintCallable, Category = "SQLite|Query", meta = (DisplayName = "Is Database File Handle Open?"))
+	static bool IsDatabaseOpen(const FString& DatabaseFilename);
+	
     static TArray<uint8> Dump(const FString& DatabaseFilename);
     static bool Restore(const FString& DatabaseFilename, const TArray<uint8>& data);
 
