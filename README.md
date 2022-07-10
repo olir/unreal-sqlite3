@@ -10,11 +10,6 @@ https://blueprintue.com/blueprint/z9xg6l0u/ https://blueprintue.com/blueprint/sw
 
 If you have high-performance requirements, you need to enhance it for using prepared statements in the desired way. This has not been implemented, yet. 
 
-# Simple SQLite3 Source integration for Unreal Engine
-
-
-Please report any problems to the [issues tracker](https://github.com/cindustries/unreal-sqlite3/issues) on this GitHub, or join us at [#unrealengine on irc.freenode.net](https://webchat.freenode.net/?channels=#unrealengine)), you can msg me under **Getty**.
-
 # Works On
 
 Compiled and basic functionality:
