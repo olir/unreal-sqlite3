@@ -19,8 +19,8 @@ bool USQLiteDatabase::CreateDatabase(const FString& Filename, bool RelativeToPro
 {
 	const FString actualFilename = RelativeToProjectContentDirectory ? FPaths::ConvertRelativePathToFull(FPaths::ProjectContentDir()) + Filename : Filename;
 
-    sqlite3* db;
-    int res = sqlite3_open(TCHAR_TO_ANSI(*actualFilename), &db);
+	sqlite3* db;
+	int res = sqlite3_open(TCHAR_TO_ANSI(*actualFilename), &db);
     if (res == SQLITE_OK)
     {
         sqlite3_close(db);
@@ -37,7 +37,7 @@ bool USQLiteDatabase::CreateDatabase(const FString& Filename, bool RelativeToPro
 
 bool USQLiteDatabase::RegisterDatabase(const FString& Name, const FString& Filename, bool RelativeToProjectContentDirectory, bool KeepOpen)
 {
-	const FString actualFilename = RelativeToProjectContentDirectory ? FPaths::ProjectContentDir() + Filename : Filename;
+	const FString actualFilename = RelativeToProjectContentDirectory ? FPaths::ConvertRelativePathToFull(FPaths::ProjectContentDir()) + Filename : Filename;
 
 	if (!IsValidDatabase(actualFilename, true))
 	{
@@ -296,8 +296,21 @@ bool USQLiteDatabase::IsDatabaseRegistered(const FString& DatabaseName)
 
 //--------------------------------------------------------------------------------------------------------------
 
+bool USQLiteDatabase::IsDatabaseOpen(const FString& DatabaseFilename)
+{
+	const FString* DatabaseName = Databases.FindKey(DatabaseFilename);
+
+	return DatabaseName && SQLite3Databases.Contains(*DatabaseName);
+}
+
+//--------------------------------------------------------------------------------------------------------------
+
 bool USQLiteDatabase::CanOpenDatabase(const FString& DatabaseFilename)
 {
+	// don't try to open an DB which already has an open file handle
+	if(IsDatabaseOpen(DatabaseFilename)) 
+		return true;
+	
 	sqlite3* db;
 	if (sqlite3_open(TCHAR_TO_ANSI(*DatabaseFilename), &db) == SQLITE_OK)
 	{
